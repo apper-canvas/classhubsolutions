@@ -123,7 +123,10 @@ const handleSearchChange = (e) => {
       (student.email_c || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
       (student.grade_c || '').toLowerCase().includes(searchTerm.toLowerCase());
 // Grade filter - extract grade level from filter value (e.g., "10th" from "10th Grade")
-    const matchesGrade = gradeFilter === "all" || student.grade_c === gradeFilter.replace(' Grade', '');
+const matchesGrade = gradeFilter === "all" || 
+      student.grade_c === gradeFilter || 
+      student.grade_c === gradeFilter.replace(' Grade', '') ||
+      student.grade_c === gradeFilter.replace(/(\d+)\w+\s+Grade/, '$1');
 
     // Status filter
     const matchesStatus = statusFilter === "all" || student.status_c?.toLowerCase() === statusFilter.toLowerCase();
