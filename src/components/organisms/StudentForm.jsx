@@ -30,16 +30,16 @@ if (student) {
         notes_c: student.notes_c || "",
         status_c: student.status_c || "Active"
       });
-    } else {
+} else {
       setFormData({
-        firstName: "",
-        lastName: "",
-        email: "",
-        grade: "",
-        dateOfBirth: "",
-        parentContact: "",
-        notes: "",
-        status: "Active"
+        first_name_c: "",
+        last_name_c: "",
+        email_c: "",
+        grade_c: "",
+        date_of_birth_c: "",
+        parent_contact_c: "",
+        notes_c: "",
+        status_c: "Active"
       });
     }
     setErrors({});
