@@ -1,11 +1,21 @@
 class StudentService {
   constructor() {
-    const { ApperClient } = window.ApperSDK;
-    this.apperClient = new ApperClient({
-      apperProjectId: import.meta.env.VITE_APPER_PROJECT_ID,
-      apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
-    });
     this.tableName = 'student_c';
+    this.apperClient = null;
+  }
+
+  getApperClient() {
+    if (!this.apperClient) {
+      if (!window.ApperSDK) {
+        throw new Error('ApperSDK not loaded. Please ensure the SDK script is included.');
+      }
+      const { ApperClient } = window.ApperSDK;
+      this.apperClient = new ApperClient({
+        apperProjectId: import.meta.env.VITE_APPER_PROJECT_ID,
+        apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
+      });
+    }
+    return this.apperClient;
   }
 
   async getAll() {
@@ -24,7 +34,7 @@ class StudentService {
         ]
       };
       
-      const response = await this.apperClient.fetchRecords(this.tableName, params);
+const response = await this.getApperClient().fetchRecords(this.tableName, params);
       
       if (!response.success) {
         console.error(response.message);
@@ -58,7 +68,7 @@ class StudentService {
         ]
       };
       
-      const response = await this.apperClient.getRecordById(this.tableName, id, params);
+const response = await this.getApperClient().getRecordById(this.tableName, id, params);
       
       if (!response.success) {
         console.error(response.message);
@@ -92,7 +102,7 @@ class StudentService {
         }]
       };
       
-      const response = await this.apperClient.createRecord(this.tableName, params);
+const response = await this.getApperClient().createRecord(this.tableName, params);
       
       if (!response.success) {
         console.error(response.message);
@@ -143,7 +153,7 @@ class StudentService {
         records: [updateData]
       };
       
-      const response = await this.apperClient.updateRecord(this.tableName, params);
+const response = await this.getApperClient().updateRecord(this.tableName, params);
       
       if (!response.success) {
         console.error(response.message);
@@ -178,7 +188,7 @@ class StudentService {
         RecordIds: [parseInt(id)]
       };
       
-      const response = await this.apperClient.deleteRecord(this.tableName, params);
+const response = await this.getApperClient().deleteRecord(this.tableName, params);
       
       if (!response.success) {
         console.error(response.message);
