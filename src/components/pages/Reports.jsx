@@ -23,7 +23,7 @@ const Reports = () => {
       setLoading(true);
       setError("");
       
-      const [studentsData, gradesData, attendanceData, assignmentsData] = await Promise.all([
+const [studentsData, gradesData, attendanceData, assignmentsData] = await Promise.all([
         studentService.getAll(),
         gradeService.getAll(),
         attendanceService.getAll(),
@@ -50,14 +50,14 @@ const Reports = () => {
   const generateClassReport = () => {
     const { students, grades, attendance } = reportData;
     
-    const totalStudents = students.length;
-    const activeStudents = students.filter(s => s.status === "Active").length;
+const totalStudents = students.length;
+    const activeStudents = students.filter(s => s.status_c === "Active").length;
     const totalGrades = grades.length;
     const avgGrade = totalGrades > 0 ? 
-      (grades.reduce((sum, g) => sum + g.score, 0) / totalGrades).toFixed(1) : "0";
+      (grades.reduce((sum, g) => sum + (g.score_c || 0), 0) / totalGrades).toFixed(1) : "0";
     
     const totalAttendance = attendance.length;
-    const presentCount = attendance.filter(a => a.status === "Present").length;
+    const presentCount = attendance.filter(a => a.status_c === "Present").length;
     const attendanceRate = totalAttendance > 0 ? 
       ((presentCount / totalAttendance) * 100).toFixed(1) : "0";
 
@@ -73,14 +73,14 @@ const Reports = () => {
   const generateStudentPerformance = () => {
     const { students, grades } = reportData;
     
-    return students.map(student => {
-      const studentGrades = grades.filter(g => g.studentId === student.Id);
+return students.map(student => {
+      const studentGrades = grades.filter(g => (g.student_id_c?.Id || g.student_id_c) === student.Id);
       const avgScore = studentGrades.length > 0 ? 
-        (studentGrades.reduce((sum, g) => sum + g.score, 0) / studentGrades.length).toFixed(1) : "0";
+        (studentGrades.reduce((sum, g) => sum + (g.score_c || 0), 0) / studentGrades.length).toFixed(1) : "0";
       
       return {
-        name: `${student.firstName} ${student.lastName}`,
-        grade: student.grade,
+        name: `${student.first_name_c} ${student.last_name_c}`,
+        grade: student.grade_c,
         avgScore,
         totalGrades: studentGrades.length
       };
@@ -89,15 +89,14 @@ const Reports = () => {
 
   const generateAttendanceSummary = () => {
     const { students, attendance } = reportData;
-    
-    return students.map(student => {
-      const studentAttendance = attendance.filter(a => a.studentId === student.Id);
-      const presentCount = studentAttendance.filter(a => a.status === "Present").length;
+return students.map(student => {
+      const studentAttendance = attendance.filter(a => (a.student_id_c?.Id || a.student_id_c) === student.Id);
+      const presentCount = studentAttendance.filter(a => a.status_c === "Present").length;
       const attendanceRate = studentAttendance.length > 0 ? 
         ((presentCount / studentAttendance.length) * 100).toFixed(1) : "0";
       
       return {
-        name: `${student.firstName} ${student.lastName}`,
+        name: `${student.first_name_c} ${student.last_name_c}`,
         totalDays: studentAttendance.length,
         presentDays: presentCount,
         attendanceRate
@@ -194,14 +193,13 @@ const Reports = () => {
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
               {studentPerformance.map((student, index) => {
-                const performanceLevel = parseFloat(student.avgScore) >= 90 ? "Excellent" :
+const performanceLevel = parseFloat(student.avgScore) >= 90 ? "Excellent" :
                   parseFloat(student.avgScore) >= 80 ? "Good" :
                   parseFloat(student.avgScore) >= 70 ? "Fair" : "Needs Improvement";
                 
                 const performanceColor = parseFloat(student.avgScore) >= 90 ? "text-success" :
                   parseFloat(student.avgScore) >= 80 ? "text-info" :
                   parseFloat(student.avgScore) >= 70 ? "text-warning" : "text-error";
-
                 return (
                   <tr key={index} className="hover:bg-gray-50">
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
@@ -255,7 +253,7 @@ const Reports = () => {
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
               {attendanceSummary.map((student, index) => {
-                const rate = parseFloat(student.attendanceRate);
+const rate = parseFloat(student.attendanceRate);
                 const status = rate >= 95 ? "Excellent" :
                   rate >= 85 ? "Good" :
                   rate >= 75 ? "Fair" : "Poor";
@@ -263,7 +261,6 @@ const Reports = () => {
                 const statusColor = rate >= 95 ? "text-success" :
                   rate >= 85 ? "text-info" :
                   rate >= 75 ? "text-warning" : "text-error";
-
                 return (
                   <tr key={index} className="hover:bg-gray-50">
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">

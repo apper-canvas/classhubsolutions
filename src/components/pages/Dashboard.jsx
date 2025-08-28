@@ -24,7 +24,7 @@ const Dashboard = () => {
       setLoading(true);
       setError("");
       
-      const [studentsData, gradesData, attendanceData, assignmentsData] = await Promise.all([
+const [studentsData, gradesData, attendanceData, assignmentsData] = await Promise.all([
         studentService.getAll(),
         gradeService.getAll(),
         attendanceService.getAll(),
@@ -51,20 +51,19 @@ const Dashboard = () => {
   const calculateStats = () => {
     const { students, grades, attendance } = dashboardData;
     
-    const totalStudents = students.length;
-    const activeStudents = students.filter(s => s.status === "Active").length;
+const totalStudents = students.length;
+    const activeStudents = students.filter(s => s.status_c === "Active").length;
     const totalGrades = grades.length;
     const avgGrade = totalGrades > 0 ? 
-      (grades.reduce((sum, g) => sum + g.score, 0) / totalGrades).toFixed(1) : "0";
+      (grades.reduce((sum, g) => sum + (g.score_c || 0), 0) / totalGrades).toFixed(1) : "0";
     
     const today = new Date().toDateString();
     const todayAttendance = attendance.filter(a => 
-      new Date(a.date).toDateString() === today
+      new Date(a.date_c).toDateString() === today
     );
-    const presentToday = todayAttendance.filter(a => a.status === "Present").length;
+    const presentToday = todayAttendance.filter(a => a.status_c === "Present").length;
     const attendanceRate = todayAttendance.length > 0 ? 
       ((presentToday / todayAttendance.length) * 100).toFixed(1) : "0";
-
     return {
       totalStudents,
       activeStudents,
@@ -73,16 +72,16 @@ const Dashboard = () => {
     };
   };
 
-  const getRecentActivity = () => {
+const getRecentActivity = () => {
     const { grades, attendance } = dashboardData;
     
     const recentGrades = grades
-      .filter(g => g.submittedDate)
-      .sort((a, b) => new Date(b.submittedDate) - new Date(a.submittedDate))
+      .filter(g => g.submitted_date_c)
+      .sort((a, b) => new Date(b.submitted_date_c) - new Date(a.submitted_date_c))
       .slice(0, 5);
     
     const recentAttendance = attendance
-      .sort((a, b) => new Date(b.date) - new Date(a.date))
+      .sort((a, b) => new Date(b.date_c) - new Date(a.date_c))
       .slice(0, 5);
 
     return { recentGrades, recentAttendance };
@@ -160,24 +159,24 @@ const Dashboard = () => {
               <p className="text-gray-500 text-sm">No recent grades available</p>
             ) : (
               recentGrades.map((grade) => {
-                const student = dashboardData.students.find(s => s.Id === grade.studentId);
-                const assignment = dashboardData.assignments.find(a => a.Id === grade.assignmentId);
-                const percentage = assignment ? ((grade.score / assignment.totalPoints) * 100).toFixed(1) : "0";
+const student = dashboardData.students.find(s => s.Id === (grade.student_id_c?.Id || grade.student_id_c));
+                const assignment = dashboardData.assignments.find(a => a.Id === (grade.assignment_id_c?.Id || grade.assignment_id_c));
+                const percentage = assignment ? ((grade.score_c / assignment.total_points_c) * 100).toFixed(1) : "0";
                 
                 return (
                   <div key={grade.Id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                     <div>
                       <p className="font-medium text-gray-900">
-                        {student ? `${student.firstName} ${student.lastName}` : "Unknown Student"}
+                        {student ? `${student.first_name_c} ${student.last_name_c}` : (grade.student_id_c?.Name || "Unknown Student")}
                       </p>
                       <p className="text-sm text-gray-600">
-                        {assignment ? assignment.name : "Unknown Assignment"}
+                        {assignment ? assignment.Name : (grade.assignment_id_c?.Name || "Unknown Assignment")}
                       </p>
                     </div>
                     <div className="text-right">
                       <p className="font-semibold text-gray-900">{percentage}%</p>
                       <p className="text-xs text-gray-500">
-                        {format(new Date(grade.submittedDate), "MMM dd")}
+                        {format(new Date(grade.submitted_date_c), "MMM dd")}
                       </p>
                     </div>
                   </div>
@@ -200,7 +199,7 @@ const Dashboard = () => {
               <p className="text-gray-500 text-sm">No recent attendance records</p>
             ) : (
               recentAttendance.slice(0, 5).map((record) => {
-                const student = dashboardData.students.find(s => s.Id === record.studentId);
+const student = dashboardData.students.find(s => s.Id === (record.student_id_c?.Id || record.student_id_c));
                 const statusColors = {
                   "Present": "text-success bg-success/10",
                   "Absent": "text-error bg-error/10",
@@ -212,14 +211,14 @@ const Dashboard = () => {
                   <div key={record.Id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                     <div>
                       <p className="font-medium text-gray-900">
-                        {student ? `${student.firstName} ${student.lastName}` : "Unknown Student"}
+                        {student ? `${student.first_name_c} ${student.last_name_c}` : (record.student_id_c?.Name || "Unknown Student")}
                       </p>
                       <p className="text-sm text-gray-600">
-                        {format(new Date(record.date), "MMM dd, yyyy")}
+                        {format(new Date(record.date_c), "MMM dd, yyyy")}
                       </p>
                     </div>
-                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${statusColors[record.status] || statusColors["Present"]}`}>
-                      {record.status}
+                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${statusColors[record.status_c] || statusColors["Present"]}`}>
+                      {record.status_c}
                     </span>
                   </div>
                 );

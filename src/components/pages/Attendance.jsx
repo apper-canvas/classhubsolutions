@@ -23,10 +23,9 @@ const Attendance = () => {
       setError("");
       
       const [attendanceData, studentsData] = await Promise.all([
-        attendanceService.getAll(),
+attendanceService.getAll(),
         studentService.getAll()
       ]);
-      
       setAttendance(attendanceData);
       setStudents(studentsData);
     } catch (err) {
@@ -53,11 +52,10 @@ const Attendance = () => {
   };
 
   const calculateAttendanceStats = () => {
-    const totalRecords = attendance.length;
-    const presentRecords = attendance.filter(a => a.status === "Present").length;
-    const absentRecords = attendance.filter(a => a.status === "Absent").length;
-    const lateRecords = attendance.filter(a => a.status === "Late").length;
-    
+const totalRecords = attendance.length;
+    const presentRecords = attendance.filter(a => a.status_c === "Present").length;
+    const absentRecords = attendance.filter(a => a.status_c === "Absent").length;
+    const lateRecords = attendance.filter(a => a.status_c === "Late").length;
     const attendanceRate = totalRecords > 0 ? ((presentRecords / totalRecords) * 100).toFixed(1) : "0";
     
     return {
@@ -149,7 +147,7 @@ const Attendance = () => {
         />
       ) : (
         <AttendanceGrid
-          students={students}
+students={students}
           attendance={attendance}
           currentDate={currentDate}
         />

@@ -5,30 +5,30 @@ import Select from "@/components/atoms/Select";
 import ApperIcon from "@/components/ApperIcon";
 
 const StudentForm = ({ student, onSubmit, onCancel, isOpen }) => {
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    grade: "",
-    dateOfBirth: "",
-    parentContact: "",
-    notes: "",
-    status: "Active"
+const [formData, setFormData] = useState({
+    first_name_c: "",
+    last_name_c: "",
+    email_c: "",
+    grade_c: "",
+    date_of_birth_c: "",
+    parent_contact_c: "",
+    notes_c: "",
+    status_c: "Active"
   });
   
   const [errors, setErrors] = useState({});
 
   useEffect(() => {
-    if (student) {
+if (student) {
       setFormData({
-        firstName: student.firstName || "",
-        lastName: student.lastName || "",
-        email: student.email || "",
-        grade: student.grade || "",
-        dateOfBirth: student.dateOfBirth ? student.dateOfBirth.split('T')[0] : "",
-        parentContact: student.parentContact || "",
-        notes: student.notes || "",
-        status: student.status || "Active"
+        first_name_c: student.first_name_c || "",
+        last_name_c: student.last_name_c || "",
+        email_c: student.email_c || "",
+        grade_c: student.grade_c || "",
+        date_of_birth_c: student.date_of_birth_c ? student.date_of_birth_c.split('T')[0] : "",
+        parent_contact_c: student.parent_contact_c || "",
+        notes_c: student.notes_c || "",
+        status_c: student.status_c || "Active"
       });
     } else {
       setFormData({
@@ -56,16 +56,15 @@ const StudentForm = ({ student, onSubmit, onCancel, isOpen }) => {
   const validateForm = () => {
     const newErrors = {};
     
-    if (!formData.firstName.trim()) newErrors.firstName = "First name is required";
-    if (!formData.lastName.trim()) newErrors.lastName = "Last name is required";
-    if (!formData.email.trim()) {
-      newErrors.email = "Email is required";
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = "Invalid email format";
+if (!formData.first_name_c.trim()) newErrors.first_name_c = "First name is required";
+    if (!formData.last_name_c.trim()) newErrors.last_name_c = "Last name is required";
+    if (!formData.email_c.trim()) {
+      newErrors.email_c = "Email is required";
+    } else if (!/\S+@\S+\.\S+/.test(formData.email_c)) {
+      newErrors.email_c = "Invalid email format";
     }
-    if (!formData.grade.trim()) newErrors.grade = "Grade is required";
-    if (!formData.dateOfBirth) newErrors.dateOfBirth = "Date of birth is required";
-    
+    if (!formData.grade_c.trim()) newErrors.grade_c = "Grade is required";
+    if (!formData.date_of_birth_c) newErrors.date_of_birth_c = "Date of birth is required";
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -93,20 +92,20 @@ const StudentForm = ({ student, onSubmit, onCancel, isOpen }) => {
         
         <form onSubmit={handleSubmit} className="p-6 space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <FormField
+<FormField
               label="First Name"
-              name="firstName"
-              value={formData.firstName}
+              name="first_name_c"
+              value={formData.first_name_c}
               onChange={handleChange}
-              error={errors.firstName}
+              error={errors.first_name_c}
               required
             />
             <FormField
               label="Last Name"
-              name="lastName"
-              value={formData.lastName}
+              name="last_name_c"
+              value={formData.last_name_c}
               onChange={handleChange}
-              error={errors.lastName}
+              error={errors.last_name_c}
               required
             />
           </div>
@@ -114,52 +113,51 @@ const StudentForm = ({ student, onSubmit, onCancel, isOpen }) => {
           <FormField
             label="Email Address"
             type="email"
-            name="email"
-            value={formData.email}
+            name="email_c"
+            value={formData.email_c}
             onChange={handleChange}
-            error={errors.email}
+            error={errors.email_c}
             required
           />
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <FormField
               label="Grade"
-              name="grade"
-              value={formData.grade}
+              name="grade_c"
+              value={formData.grade_c}
               onChange={handleChange}
-              error={errors.grade}
+              error={errors.grade_c}
               required
             />
             <FormField
               label="Date of Birth"
               type="date"
-              name="dateOfBirth"
-              value={formData.dateOfBirth}
+              name="date_of_birth_c"
+              value={formData.date_of_birth_c}
               onChange={handleChange}
-              error={errors.dateOfBirth}
+              error={errors.date_of_birth_c}
               required
             />
           </div>
           
           <FormField
             label="Parent Contact"
-            name="parentContact"
-            value={formData.parentContact}
+            name="parent_contact_c"
+            value={formData.parent_contact_c}
             onChange={handleChange}
             placeholder="Parent phone number or email"
           />
           
           <FormField
             label="Status"
-            error={errors.status}
+            error={errors.status_c}
           >
             <Select
-              name="status"
-              value={formData.status}
+              name="status_c"
+              value={formData.status_c}
               onChange={handleChange}
             >
               <option value="Active">Active</option>
-              <option value="Inactive">Inactive</option>
               <option value="Pending">Pending</option>
             </Select>
           </FormField>
@@ -168,8 +166,8 @@ const StudentForm = ({ student, onSubmit, onCancel, isOpen }) => {
             label="Notes"
           >
             <textarea
-              name="notes"
-              value={formData.notes}
+              name="notes_c"
+              value={formData.notes_c}
               onChange={handleChange}
               rows={3}
               className="flex w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm text-gray-900 placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent disabled:cursor-not-allowed disabled:opacity-50 resize-none"

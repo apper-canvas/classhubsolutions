@@ -16,19 +16,19 @@ const GradesTable = ({ grades, assignments, students, onEdit, onDelete }) => {
     return { variant: "error", text: "F" };
   };
 
-  const getStudentName = (studentId) => {
+const getStudentName = (studentId) => {
     const student = students.find(s => s.Id === studentId);
-    return student ? `${student.firstName} ${student.lastName}` : "Unknown Student";
+    return student ? `${student.first_name_c} ${student.last_name_c}` : "Unknown Student";
   };
 
   const getAssignmentName = (assignmentId) => {
     const assignment = assignments.find(a => a.Id === assignmentId);
-    return assignment ? assignment.name : "Unknown Assignment";
+    return assignment ? assignment.Name : "Unknown Assignment";
   };
 
   const getAssignmentPoints = (assignmentId) => {
     const assignment = assignments.find(a => a.Id === assignmentId);
-    return assignment ? assignment.totalPoints : 100;
+    return assignment ? assignment.total_points_c : 100;
   };
 
   return (
@@ -61,9 +61,9 @@ const GradesTable = ({ grades, assignments, students, onEdit, onDelete }) => {
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            {grades.map((grade, index) => {
-              const totalPoints = getAssignmentPoints(grade.assignmentId);
-              const gradeStatus = getGradeStatus(grade.score, totalPoints);
+{grades.map((grade, index) => {
+              const totalPoints = getAssignmentPoints(grade.assignment_id_c?.Id || grade.assignment_id_c);
+              const gradeStatus = getGradeStatus(grade.score_c, totalPoints);
               
               return (
                 <tr key={grade.Id} className={cn(
@@ -72,21 +72,21 @@ const GradesTable = ({ grades, assignments, students, onEdit, onDelete }) => {
                 )}>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="text-sm font-medium text-gray-900">
-                      {getStudentName(grade.studentId)}
+                      {grade.student_id_c?.Name || getStudentName(grade.student_id_c?.Id || grade.student_id_c)}
                     </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="text-sm text-gray-900">
-                      {getAssignmentName(grade.assignmentId)}
+                      {grade.assignment_id_c?.Name || getAssignmentName(grade.assignment_id_c?.Id || grade.assignment_id_c)}
                     </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="text-sm font-medium text-gray-900">
-                      {grade.score}/{totalPoints}
+                      {grade.score_c}/{totalPoints}
                     </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap" style={{ minWidth: "150px" }}>
-                    <GradeBar score={grade.score} maxScore={totalPoints} />
+                    <GradeBar score={grade.score_c} maxScore={totalPoints} />
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <Badge variant={gradeStatus.variant}>
@@ -94,7 +94,7 @@ const GradesTable = ({ grades, assignments, students, onEdit, onDelete }) => {
                     </Badge>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {grade.submittedDate ? format(new Date(grade.submittedDate), "MMM dd") : "Not submitted"}
+                    {grade.submitted_date_c ? format(new Date(grade.submitted_date_c), "MMM dd") : "Not submitted"}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                     <div className="flex items-center justify-end space-x-2">

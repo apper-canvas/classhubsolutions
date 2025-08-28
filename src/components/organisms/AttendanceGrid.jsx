@@ -8,11 +8,11 @@ const AttendanceGrid = ({ students, attendance, currentDate = new Date() }) => {
   const monthEnd = endOfMonth(currentDate);
   const days = eachDayOfInterval({ start: monthStart, end: monthEnd });
 
-  const getAttendanceStatus = (studentId, date) => {
+const getAttendanceStatus = (studentId, date) => {
     const record = attendance.find(
-      a => a.studentId === studentId && isSameDay(new Date(a.date), date)
+      a => (a.student_id_c?.Id || a.student_id_c) === studentId && isSameDay(new Date(a.date_c), date)
     );
-    return record?.status || "none";
+    return record?.status_c || "none";
   };
 
   const getStatusColor = (status) => {
@@ -60,7 +60,7 @@ const AttendanceGrid = ({ students, attendance, currentDate = new Date() }) => {
             ))}
           </div>
           
-          {/* Student rows */}
+{/* Student rows */}
           {students.slice(0, 10).map((student, index) => (
             <div
               key={student.Id}
@@ -71,10 +71,10 @@ const AttendanceGrid = ({ students, attendance, currentDate = new Date() }) => {
             >
               <div className="w-48 px-4 py-3 border-r border-gray-200">
                 <div className="text-sm font-medium text-gray-900">
-                  {student.firstName} {student.lastName}
+                  {student.first_name_c} {student.last_name_c}
                 </div>
                 <div className="text-xs text-gray-500">
-                  Grade {student.grade}
+                  Grade {student.grade_c}
                 </div>
               </div>
               {days.map((day) => {

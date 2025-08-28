@@ -42,7 +42,7 @@ const StudentTable = ({ students, onEdit, onDelete, onView }) => {
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
-            {students.map((student, index) => (
+{students.map((student, index) => (
               <tr key={student.Id} className={cn(
                 "hover:bg-gray-50 transition-colors",
                 index % 2 === 0 ? "bg-white" : "bg-gray-50/50"
@@ -50,11 +50,11 @@ const StudentTable = ({ students, onEdit, onDelete, onView }) => {
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="flex items-center">
                     <div className="w-10 h-10 bg-gradient-primary rounded-full flex items-center justify-center text-white font-medium text-sm">
-                      {student.firstName.charAt(0)}{student.lastName.charAt(0)}
+                      {student.first_name_c?.charAt(0) || ''}{student.last_name_c?.charAt(0) || ''}
                     </div>
                     <div className="ml-4">
                       <div className="text-sm font-medium text-gray-900">
-                        {student.firstName} {student.lastName}
+                        {student.first_name_c} {student.last_name_c}
                       </div>
                       <div className="text-sm text-gray-500">
                         ID: {student.Id}
@@ -63,18 +63,18 @@ const StudentTable = ({ students, onEdit, onDelete, onView }) => {
                   </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm font-medium text-gray-900">{student.grade}</div>
+                  <div className="text-sm font-medium text-gray-900">{student.grade_c}</div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm text-gray-900">{student.email}</div>
+                  <div className="text-sm text-gray-900">{student.email_c}</div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <Badge variant={getStatusVariant(student.status)}>
-                    {student.status}
+                  <Badge variant={getStatusVariant(student.status_c)}>
+                    {student.status_c}
                   </Badge>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  {format(new Date(student.dateOfBirth), "MMM dd, yyyy")}
+                  {student.date_of_birth_c ? format(new Date(student.date_of_birth_c), "MMM dd, yyyy") : "N/A"}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                   <div className="flex items-center justify-end space-x-2">

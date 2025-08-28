@@ -26,7 +26,7 @@ const Grades = () => {
       setLoading(true);
       setError("");
       
-      const [gradesData, studentsData, assignmentsData] = await Promise.all([
+const [gradesData, studentsData, assignmentsData] = await Promise.all([
         gradeService.getAll(),
         studentService.getAll(),
         assignmentService.getAll()
@@ -50,7 +50,7 @@ const Grades = () => {
     const newScore = prompt("Enter new score:", grade.score);
     if (newScore !== null && !isNaN(newScore)) {
       try {
-        await gradeService.update(grade.Id, { ...grade, score: parseFloat(newScore) });
+await gradeService.update(grade.Id, { ...grade, score_c: parseFloat(newScore) });
         await loadData();
         toast.success("Grade updated successfully!");
       } catch (err) {
@@ -62,7 +62,7 @@ const Grades = () => {
   const handleDeleteGrade = async (grade) => {
     if (window.confirm("Are you sure you want to delete this grade?")) {
       try {
-        await gradeService.delete(grade.Id);
+await gradeService.delete(grade.Id);
         await loadData();
         toast.success("Grade deleted successfully!");
       } catch (err) {
@@ -79,18 +79,19 @@ const Grades = () => {
     setSelectedCategory(e.target.value);
   };
 
-  const filteredGrades = grades.filter(grade => {
-    const student = students.find(s => s.Id === grade.studentId);
-    const assignment = assignments.find(a => a.Id === grade.assignmentId);
+const filteredGrades = grades.filter(grade => {
+    const studentId = grade.student_id_c?.Id || grade.student_id_c;
+    const assignmentId = grade.assignment_id_c?.Id || grade.assignment_id_c;
+    const student = students.find(s => s.Id === studentId);
+    const assignment = assignments.find(a => a.Id === assignmentId);
     
     const matchesSearch = student && (
-      `${student.firstName} ${student.lastName}`.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      (assignment && assignment.name.toLowerCase().includes(searchTerm.toLowerCase()))
+      `${student.first_name_c} ${student.last_name_c}`.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (assignment && assignment.Name.toLowerCase().includes(searchTerm.toLowerCase()))
     );
 
     const matchesCategory = selectedCategory === "all" || 
-      (assignment && assignment.category === selectedCategory);
-
+      (assignment && assignment.category_c === selectedCategory);
     return matchesSearch && matchesCategory;
   });
 
@@ -161,7 +162,7 @@ const Grades = () => {
           <div className="text-sm text-gray-600">Average Score</div>
           <div className="text-2xl font-bold text-gray-900">
             {grades.length > 0 ? 
-              (grades.reduce((sum, g) => sum + g.score, 0) / grades.length).toFixed(1) + "%" : 
+(grades.reduce((sum, g) => sum + (g.score_c || 0), 0) / grades.length).toFixed(1) + "%" : 
               "0%"
             }
           </div>
@@ -173,7 +174,7 @@ const Grades = () => {
         <div className="bg-white p-4 rounded-xl shadow-card">
           <div className="text-sm text-gray-600">Students Graded</div>
           <div className="text-2xl font-bold text-gray-900">
-            {new Set(grades.map(g => g.studentId)).size}
+{new Set(grades.map(g => g.student_id_c?.Id || g.student_id_c)).size}
           </div>
         </div>
       </div>
@@ -192,7 +193,7 @@ const Grades = () => {
         />
       ) : (
         <GradesTable
-          grades={filteredGrades}
+grades={filteredGrades}
           assignments={assignments}
           students={students}
           onEdit={handleEditGrade}

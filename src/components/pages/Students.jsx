@@ -53,8 +53,8 @@ const Students = () => {
     handleEditStudent(student);
   };
 
-  const handleDeleteStudent = async (student) => {
-    if (window.confirm(`Are you sure you want to delete ${student.firstName} ${student.lastName}?`)) {
+const handleDeleteStudent = async (student) => {
+    if (window.confirm(`Are you sure you want to delete ${student.first_name_c} ${student.last_name_c}?`)) {
       try {
         await studentService.delete(student.Id);
         await loadStudents();
@@ -67,7 +67,7 @@ const Students = () => {
 
   const handleFormSubmit = async (formData) => {
     try {
-      if (isEditing && selectedStudent) {
+if (isEditing && selectedStudent) {
         await studentService.update(selectedStudent.Id, formData);
         toast.success("Student updated successfully!");
       } else {
@@ -91,10 +91,10 @@ const Students = () => {
     setSearchTerm(e.target.value);
   };
 
-  const filteredStudents = students.filter(student =>
-    `${student.firstName} ${student.lastName}`.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    student.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    student.grade.toLowerCase().includes(searchTerm.toLowerCase())
+const filteredStudents = students.filter(student =>
+    `${student.first_name_c} ${student.last_name_c}`.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    (student.email_c || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
+    (student.grade_c || '').toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   if (loading) {

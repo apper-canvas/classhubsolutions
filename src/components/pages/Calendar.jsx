@@ -25,7 +25,7 @@ const Calendar = () => {
       setLoading(true);
       setError("");
       const assignmentsData = await assignmentService.getAll();
-      setAssignments(assignmentsData);
+setAssignments(assignmentsData);
     } catch (err) {
       setError("Failed to load assignments. Please try again.");
     } finally {
@@ -63,23 +63,23 @@ const Calendar = () => {
   };
 
   const handleEditAssignment = (assignment) => {
-    const newName = prompt("Enter new assignment name:", assignment.name);
+const newName = prompt("Enter new assignment name:", assignment.Name);
     if (newName && newName.trim()) {
       toast.success(`Assignment "${newName}" updated successfully!`);
     }
   };
 
   const handleDeleteAssignment = (assignment) => {
-    if (window.confirm(`Are you sure you want to delete "${assignment.name}"?`)) {
+if (window.confirm(`Are you sure you want to delete "${assignment.Name}"?`)) {
       toast.success("Assignment deleted successfully!");
     }
   };
 
   const getAssignmentsForDate = (date) => {
-    return assignments.filter(assignment => {
-      const assignmentDate = parseISO(assignment.dueDate);
+return assignments.filter(assignment => {
+      const assignmentDate = parseISO(assignment.due_date_c);
       const matchesDate = isSameDay(assignmentDate, date);
-      const matchesCategory = selectedCategory === "all" || assignment.category === selectedCategory;
+      const matchesCategory = selectedCategory === "all" || assignment.category_c === selectedCategory;
       return matchesDate && matchesCategory;
     });
   };
@@ -94,7 +94,7 @@ const Calendar = () => {
       "Mathematics": "bg-blue-100 text-blue-800",
       "Science": "bg-green-100 text-green-800",
       "English": "bg-purple-100 text-purple-800",
-      "History": "bg-yellow-100 text-yellow-800",
+"History": "bg-yellow-100 text-yellow-800",
       "default": "bg-gray-100 text-gray-800"
     };
     return colors[category] || colors.default;
@@ -137,15 +137,15 @@ const Calendar = () => {
             </div>
             <div className="space-y-1">
               {dayAssignments.slice(0, 2).map((assignment, index) => (
-                <div
+<div
                   key={assignment.Id}
                   className={cn(
                     "text-xs px-1.5 py-0.5 rounded text-left truncate",
-                    getCategoryColor(assignment.category)
+                    getCategoryColor(assignment.category_c)
                   )}
-                  title={assignment.name}
+                  title={assignment.Name}
                 >
-                  {assignment.name}
+                  {assignment.Name}
                 </div>
               ))}
               {dayAssignments.length > 2 && (
@@ -171,13 +171,13 @@ const Calendar = () => {
 
   const categories = [...new Set(assignments.map(a => a.category))];
   const upcomingAssignments = assignments
-    .filter(a => {
-      const dueDate = parseISO(a.dueDate);
+.filter(a => {
+      const dueDate = parseISO(a.due_date_c);
       const today = new Date();
-      const matchesCategory = selectedCategory === "all" || a.category === selectedCategory;
+      const matchesCategory = selectedCategory === "all" || a.category_c === selectedCategory;
       return dueDate >= today && matchesCategory;
     })
-    .sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate))
+.sort((a, b) => new Date(a.due_date_c) - new Date(b.due_date_c))
     .slice(0, 5);
 
   if (loading) {
@@ -277,13 +277,13 @@ const Calendar = () => {
                 ) : (
                   getAssignmentsForSelectedDate().map(assignment => (
                     <div key={assignment.Id} className="border border-gray-200 rounded-lg p-3">
-                      <div className="flex items-start justify-between">
+<div className="flex items-start justify-between">
                         <div className="flex-1">
                           <h4 className="font-medium text-gray-900 text-sm mb-1">
-                            {assignment.name}
+                            {assignment.Name}
                           </h4>
                           <Badge variant="secondary" className="text-xs">
-                            {assignment.category}
+                            {assignment.category_c}
                           </Badge>
                           <p className="text-xs text-gray-500 mt-1">
                             {assignment.totalPoints} points
@@ -293,7 +293,7 @@ const Calendar = () => {
                           <Button
                             variant="ghost"
                             size="sm"
-                            onClick={() => handleEditAssignment(assignment)}
+onClick={() => handleEditAssignment(assignment)}
                           >
                             <ApperIcon name="Edit2" size={14} />
                           </Button>
@@ -327,19 +327,19 @@ const Calendar = () => {
                   icon="CheckCircle"
                 />
               ) : (
-                upcomingAssignments.map(assignment => {
-                  const dueDate = parseISO(assignment.dueDate);
+upcomingAssignments.map(assignment => {
+                  const dueDate = parseISO(assignment.due_date_c);
                   const today = new Date();
                   const daysDiff = Math.ceil((dueDate - today) / (1000 * 60 * 60 * 24));
                   
                   return (
                     <div key={assignment.Id} className="border border-gray-200 rounded-lg p-3">
                       <h4 className="font-medium text-gray-900 text-sm mb-1">
-                        {assignment.name}
+                        {assignment.Name}
                       </h4>
                       <div className="flex items-center justify-between">
                         <Badge variant="secondary" className="text-xs">
-                          {assignment.category}
+                          {assignment.category_c}
                         </Badge>
                         <div className="text-right">
                           <div className="text-xs text-gray-500">
@@ -377,7 +377,7 @@ const Calendar = () => {
                 <span className="text-sm text-gray-600">This Month</span>
                 <span className="text-sm font-medium text-gray-900">
                   {assignments.filter(a => {
-                    const dueDate = parseISO(a.dueDate);
+const dueDate = parseISO(a.due_date_c);
                     return isSameMonth(dueDate, currentDate);
                   }).length}
                 </span>

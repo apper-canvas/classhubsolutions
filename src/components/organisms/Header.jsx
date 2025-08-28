@@ -1,8 +1,25 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useLocation } from "react-router-dom";
 import ApperIcon from "@/components/ApperIcon";
 import SearchBar from "@/components/molecules/SearchBar";
+import Button from "@/components/atoms/Button";
+import { AuthContext } from "../../App";
 
+const LogoutButton = () => {
+  const { logout } = useContext(AuthContext);
+  
+  return (
+    <Button 
+      variant="ghost" 
+      size="sm"
+      onClick={logout}
+      className="text-gray-600 hover:bg-gray-100"
+    >
+      <ApperIcon name="LogOut" size={16} className="mr-1" />
+      Logout
+    </Button>
+  );
+};
 const Header = ({ onMenuToggle, searchValue, onSearchChange }) => {
   const location = useLocation();
   
@@ -41,12 +58,13 @@ if (path === "/grades") return "Grades";
               className="w-80"
             />
           </div>
-          
-          <div className="flex items-center space-x-2">
+<div className="flex items-center space-x-2">
             <button className="p-2 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors relative">
               <ApperIcon name="Bell" size={20} />
               <span className="absolute -top-1 -right-1 w-3 h-3 bg-accent rounded-full"></span>
             </button>
+            
+            <LogoutButton />
             
             <div className="w-8 h-8 bg-gradient-primary rounded-full flex items-center justify-center text-white font-medium text-sm">
               T
