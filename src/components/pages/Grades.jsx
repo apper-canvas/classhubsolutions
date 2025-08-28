@@ -1,16 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import Button from "@/components/atoms/Button";
 import ApperIcon from "@/components/ApperIcon";
 import SearchBar from "@/components/molecules/SearchBar";
+import Select from "@/components/atoms/Select";
+import Button from "@/components/atoms/Button";
+import Students from "@/components/pages/Students";
 import GradesTable from "@/components/organisms/GradesTable";
-import Loading from "@/components/ui/Loading";
 import Error from "@/components/ui/Error";
 import Empty from "@/components/ui/Empty";
+import Loading from "@/components/ui/Loading";
+import assignmentService from "@/services/api/assignmentService";
 import gradeService from "@/services/api/gradeService";
 import studentService from "@/services/api/studentService";
-import assignmentService from "@/services/api/assignmentService";
-import Select from "@/components/atoms/Select";
 
 const Grades = () => {
   const [grades, setGrades] = useState([]);
@@ -90,12 +91,12 @@ const filteredGrades = grades.filter(grade => {
       (assignment && assignment.Name.toLowerCase().includes(searchTerm.toLowerCase()))
     );
 
-    const matchesCategory = selectedCategory === "all" || 
+const matchesCategory = selectedCategory === "all" || 
       (assignment && assignment.category_c === selectedCategory);
     return matchesSearch && matchesCategory;
   });
 
-  const categories = [...new Set(assignments.map(a => a.category))];
+  const categories = [...new Set(assignments.map(a => a.category_c).filter(Boolean))];
 
   if (loading) {
     return <Loading type="table" />;
