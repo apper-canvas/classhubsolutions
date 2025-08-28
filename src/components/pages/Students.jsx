@@ -110,8 +110,51 @@ const handleSearchChange = (e) => {
   const clearFilters = () => {
     setGradeFilter("all");
     setStatusFilter("all");
-    setSearchTerm("");
+setSearchTerm("");
     setFilterOpen(false);
+  };
+
+  const handleExportStudents = () => {
+    try {
+      // Prepare CSV data
+      const csvHeaders = ['Name', 'Grade', 'Email', 'Status', 'Date of Birth'];
+      const csvData = filteredStudents.map(student => [
+        `${student.first_name_c || ''} ${student.last_name_c || ''}`.trim(),
+        student.grade_c || '',
+        student.email_c || '',
+        student.status_c || '',
+        student.date_of_birth_c ? new Date(student.date_of_birth_c).toLocaleDateString() : ''
+      ]);
+
+      // Create CSV content
+      const csvContent = [
+        csvHeaders.join(','),
+        ...csvData.map(row => 
+          row.map(field => 
+            // Escape commas and quotes in field values
+            typeof field === 'string' && (field.includes(',') || field.includes('"')) 
+              ? `"${field.replace(/"/g, '""')}"` 
+              : field
+          ).join(',')
+        )
+      ].join('\n');
+
+      // Create and download file
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement('a');
+      const url = URL.createObjectURL(blob);
+      link.setAttribute('href', url);
+      link.setAttribute('download', `students_export_${new Date().toISOString().split('T')[0]}.csv`);
+      link.style.visibility = 'hidden';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      toast.success(`Exported ${filteredStudents.length} students successfully!`);
+    } catch (error) {
+      console.error('Export failed:', error);
+      toast.error('Failed to export students. Please try again.');
+    }
   };
 
   const activeFilterCount = (gradeFilter !== "all" ? 1 : 0) + (statusFilter !== "all" ? 1 : 0);
@@ -226,7 +269,7 @@ className="w-full p-2 border border-gray-300 rounded-md text-sm"
             )}
           </div>
           
-          <Button variant="outline" size="sm">
+<Button variant="outline" size="sm" onClick={handleExportStudents}>
             <ApperIcon name="Download" size={16} className="mr-2" />
             Export
           </Button>
