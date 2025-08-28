@@ -122,9 +122,8 @@ const handleSearchChange = (e) => {
       `${student.first_name_c} ${student.last_name_c}`.toLowerCase().includes(searchTerm.toLowerCase()) ||
       (student.email_c || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
       (student.grade_c || '').toLowerCase().includes(searchTerm.toLowerCase());
-
-    // Grade filter
-    const matchesGrade = gradeFilter === "all" || student.grade_c === gradeFilter;
+// Grade filter - extract grade level from filter value (e.g., "10th" from "10th Grade")
+    const matchesGrade = gradeFilter === "all" || student.grade_c === gradeFilter.replace(' Grade', '');
 
     // Status filter
     const matchesStatus = statusFilter === "all" || student.status_c?.toLowerCase() === statusFilter.toLowerCase();
@@ -183,13 +182,13 @@ const handleSearchChange = (e) => {
                     <select 
                       value={gradeFilter} 
                       onChange={(e) => handleGradeFilterChange(e.target.value)}
-                      className="w-full p-2 border border-gray-300 rounded-md text-sm"
+className="w-full p-2 border border-gray-300 rounded-md text-sm"
                     >
                       <option value="all">All Grades</option>
-                      <option value="9th">9th Grade</option>
-                      <option value="10th">10th Grade</option>
-                      <option value="11th">11th Grade</option>
-                      <option value="12th">12th Grade</option>
+                      <option value="9th Grade">9th Grade</option>
+                      <option value="10th Grade">10th Grade</option>
+                      <option value="11th Grade">11th Grade</option>
+                      <option value="12th Grade">12th Grade</option>
                     </select>
                   </div>
                   
