@@ -10,8 +10,9 @@ const Header = ({ onMenuToggle, searchValue, onSearchChange }) => {
     const path = location.pathname;
     if (path === "/" || path === "/dashboard") return "Dashboard";
     if (path === "/students") return "Students";
-    if (path === "/grades") return "Grades";
+if (path === "/grades") return "Grades";
     if (path === "/attendance") return "Attendance";
+    if (path === "/calendar") return "Calendar";
     if (path === "/reports") return "Reports";
     return "ClassHub";
   };

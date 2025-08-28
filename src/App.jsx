@@ -9,7 +9,7 @@ import Students from "@/components/pages/Students";
 import Grades from "@/components/pages/Grades";
 import Attendance from "@/components/pages/Attendance";
 import Reports from "@/components/pages/Reports";
-
+import Calendar from "@/components/pages/Calendar";
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [searchValue, setSearchValue] = useState("");
@@ -38,13 +38,14 @@ function App() {
             onSearchChange={handleSearchChange}
           />
           
-          <main className="flex-1 overflow-y-auto p-4 lg:p-6">
+<main className="flex-1 overflow-y-auto p-4 lg:p-6">
             <Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/students" element={<Students />} />
               <Route path="/grades" element={<Grades />} />
               <Route path="/attendance" element={<Attendance />} />
+              <Route path="/calendar" element={<Calendar />} />
               <Route path="/reports" element={<Reports />} />
             </Routes>
           </main>
