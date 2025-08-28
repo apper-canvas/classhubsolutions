@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import ApperIcon from "@/components/ApperIcon";
+import Input from "@/components/atoms/Input";
 import SearchBar from "@/components/molecules/SearchBar";
 import Select from "@/components/atoms/Select";
 import Button from "@/components/atoms/Button";
@@ -115,11 +116,10 @@ await gradeService.delete(grade.Id);
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Assignment Name *
               </label>
-              <input
+<Input
                 type="text"
                 value={assignmentForm.Name}
                 onChange={(e) => setAssignmentForm({...assignmentForm, Name: e.target.value})}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
                 required
               />
             </div>
