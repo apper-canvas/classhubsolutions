@@ -1,0 +1,162 @@
+[
+  {
+    "Id": 1,
+    "studentId": 1,
+    "assignmentId": 1,
+    "score": 92,
+    "submittedDate": "2024-01-15T10:30:00.000Z",
+    "comments": "Excellent work on algebraic equations"
+  },
+  {
+    "Id": 2,
+    "studentId": 2,
+    "assignmentId": 1,
+    "score": 87,
+    "submittedDate": "2024-01-15T11:15:00.000Z",
+    "comments": "Good understanding, minor calculation errors"
+  },
+  {
+    "Id": 3,
+    "studentId": 3,
+    "assignmentId": 1,
+    "score": 95,
+    "submittedDate": "2024-01-15T09:45:00.000Z",
+    "comments": "Perfect execution of problem-solving steps"
+  },
+  {
+    "Id": 4,
+    "studentId": 4,
+    "assignmentId": 1,
+    "score": 78,
+    "submittedDate": "2024-01-15T14:20:00.000Z",
+    "comments": "Needs practice with word problems"
+  },
+  {
+    "Id": 5,
+    "studentId": 5,
+    "assignmentId": 1,
+    "score": 89,
+    "submittedDate": "2024-01-15T13:10:00.000Z",
+    "comments": "Strong analytical approach"
+  },
+  {
+    "Id": 6,
+    "studentId": 1,
+    "assignmentId": 2,
+    "score": 88,
+    "submittedDate": "2024-01-18T16:30:00.000Z",
+    "comments": "Well-structured essay with good research"
+  },
+  {
+    "Id": 7,
+    "studentId": 2,
+    "assignmentId": 2,
+    "score": 91,
+    "submittedDate": "2024-01-18T15:45:00.000Z",
+    "comments": "Insightful analysis of historical events"
+  },
+  {
+    "Id": 8,
+    "studentId": 3,
+    "assignmentId": 2,
+    "score": 85,
+    "submittedDate": "2024-01-18T17:20:00.000Z",
+    "comments": "Creative approach, needs more historical details"
+  },
+  {
+    "Id": 9,
+    "studentId": 4,
+    "assignmentId": 3,
+    "score": 82,
+    "submittedDate": "2024-01-20T12:15:00.000Z",
+    "comments": "Good lab technique, accurate observations"
+  },
+  {
+    "Id": 10,
+    "studentId": 5,
+    "assignmentId": 3,
+    "score": 94,
+    "submittedDate": "2024-01-20T11:30:00.000Z",
+    "comments": "Excellent data analysis and conclusions"
+  },
+  {
+    "Id": 11,
+    "studentId": 6,
+    "assignmentId": 1,
+    "score": 83,
+    "submittedDate": "2024-01-15T12:45:00.000Z",
+    "comments": "Good effort, practice more complex problems"
+  },
+  {
+    "Id": 12,
+    "studentId": 7,
+    "assignmentId": 1,
+    "score": 90,
+    "submittedDate": "2024-01-15T10:15:00.000Z",
+    "comments": "Strong mathematical reasoning"
+  },
+  {
+    "Id": 13,
+    "studentId": 8,
+    "assignmentId": 1,
+    "score": 86,
+    "submittedDate": "2024-01-15T13:30:00.000Z",
+    "comments": "Consistent performance, well done"
+  },
+  {
+    "Id": 14,
+    "studentId": 9,
+    "assignmentId": 2,
+    "score": 93,
+    "submittedDate": "2024-01-18T14:45:00.000Z",
+    "comments": "Excellent writing style and historical insight"
+  },
+  {
+    "Id": 15,
+    "studentId": 10,
+    "assignmentId": 2,
+    "score": 76,
+    "submittedDate": "2024-01-19T10:30:00.000Z",
+    "comments": "Late submission, needs better time management"
+  },
+  {
+    "Id": 16,
+    "studentId": 11,
+    "assignmentId": 4,
+    "score": 89,
+    "submittedDate": "2024-01-22T15:20:00.000Z",
+    "comments": "Thoughtful poetry analysis with good examples"
+  },
+  {
+    "Id": 17,
+    "studentId": 12,
+    "assignmentId": 4,
+    "score": 87,
+    "submittedDate": "2024-01-22T16:10:00.000Z",
+    "comments": "Strong understanding of literary devices"
+  },
+  {
+    "Id": 18,
+    "studentId": 6,
+    "assignmentId": 3,
+    "score": 91,
+    "submittedDate": "2024-01-20T14:15:00.000Z",
+    "comments": "Precise measurements and clear methodology"
+  },
+  {
+    "Id": 19,
+    "studentId": 7,
+    "assignmentId": 3,
+    "score": 88,
+    "submittedDate": "2024-01-20T13:45:00.000Z",
+    "comments": "Good experimental design and analysis"
+  },
+  {
+    "Id": 20,
+    "studentId": 8,
+    "assignmentId": 2,
+    "score": 84,
+    "submittedDate": "2024-01-18T18:30:00.000Z",
+    "comments": "Well-organized essay, expand on key points"
+  }
+]

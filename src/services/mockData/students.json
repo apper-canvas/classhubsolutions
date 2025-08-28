@@ -1,0 +1,134 @@
+[
+  {
+    "Id": 1,
+    "firstName": "Emma",
+    "lastName": "Johnson",
+    "email": "emma.johnson@email.com",
+    "grade": "10th Grade",
+    "dateOfBirth": "2008-03-15T00:00:00.000Z",
+    "parentContact": "(555) 123-4567",
+    "notes": "Excellent in mathematics, needs improvement in writing",
+    "status": "Active"
+  },
+  {
+    "Id": 2,
+    "firstName": "Liam",
+    "lastName": "Williams",
+    "email": "liam.williams@email.com",
+    "grade": "10th Grade",
+    "dateOfBirth": "2008-07-22T00:00:00.000Z",
+    "parentContact": "(555) 234-5678",
+    "notes": "Strong leadership skills, active in sports",
+    "status": "Active"
+  },
+  {
+    "Id": 3,
+    "firstName": "Sophia",
+    "lastName": "Brown",
+    "email": "sophia.brown@email.com",
+    "grade": "10th Grade",
+    "dateOfBirth": "2008-01-10T00:00:00.000Z",
+    "parentContact": "(555) 345-6789",
+    "notes": "Creative student with artistic talents",
+    "status": "Active"
+  },
+  {
+    "Id": 4,
+    "firstName": "Noah",
+    "lastName": "Davis",
+    "email": "noah.davis@email.com",
+    "grade": "10th Grade",
+    "dateOfBirth": "2008-05-18T00:00:00.000Z",
+    "parentContact": "(555) 456-7890",
+    "notes": "Strong in science subjects, quiet but engaged",
+    "status": "Active"
+  },
+  {
+    "Id": 5,
+    "firstName": "Olivia",
+    "lastName": "Miller",
+    "email": "olivia.miller@email.com",
+    "grade": "10th Grade",
+    "dateOfBirth": "2008-09-03T00:00:00.000Z",
+    "parentContact": "(555) 567-8901",
+    "notes": "Excellent communicator, helps other students",
+    "status": "Active"
+  },
+  {
+    "Id": 6,
+    "firstName": "Ethan",
+    "lastName": "Wilson",
+    "email": "ethan.wilson@email.com",
+    "grade": "10th Grade",
+    "dateOfBirth": "2008-11-25T00:00:00.000Z",
+    "parentContact": "(555) 678-9012",
+    "notes": "Tech-savvy, interested in computer programming",
+    "status": "Active"
+  },
+  {
+    "Id": 7,
+    "firstName": "Ava",
+    "lastName": "Moore",
+    "email": "ava.moore@email.com",
+    "grade": "10th Grade",
+    "dateOfBirth": "2008-04-12T00:00:00.000Z",
+    "parentContact": "(555) 789-0123",
+    "notes": "Strong analytical skills, participates in debate club",
+    "status": "Active"
+  },
+  {
+    "Id": 8,
+    "firstName": "Mason",
+    "lastName": "Taylor",
+    "email": "mason.taylor@email.com",
+    "grade": "10th Grade",
+    "dateOfBirth": "2008-08-08T00:00:00.000Z",
+    "parentContact": "(555) 890-1234",
+    "notes": "Consistent performer, well-organized",
+    "status": "Active"
+  },
+  {
+    "Id": 9,
+    "firstName": "Isabella",
+    "lastName": "Anderson",
+    "email": "isabella.anderson@email.com",
+    "grade": "10th Grade",
+    "dateOfBirth": "2008-02-28T00:00:00.000Z",
+    "parentContact": "(555) 901-2345",
+    "notes": "Multilingual, helps with peer tutoring",
+    "status": "Active"
+  },
+  {
+    "Id": 10,
+    "firstName": "Lucas",
+    "lastName": "Thomas",
+    "email": "lucas.thomas@email.com",
+    "grade": "10th Grade",
+    "dateOfBirth": "2008-06-14T00:00:00.000Z",
+    "parentContact": "(555) 012-3456",
+    "notes": "Struggles with attendance, needs extra support",
+    "status": "Pending"
+  },
+  {
+    "Id": 11,
+    "firstName": "Mia",
+    "lastName": "Jackson",
+    "email": "mia.jackson@email.com",
+    "grade": "10th Grade",
+    "dateOfBirth": "2008-12-05T00:00:00.000Z",
+    "parentContact": "(555) 123-5678",
+    "notes": "Strong in humanities, active in school newspaper",
+    "status": "Active"
+  },
+  {
+    "Id": 12,
+    "firstName": "Alexander",
+    "lastName": "White",
+    "email": "alexander.white@email.com",
+    "grade": "10th Grade",
+    "dateOfBirth": "2008-10-17T00:00:00.000Z",
+    "parentContact": "(555) 234-6789",
+    "notes": "Excellent problem solver, interested in robotics",
+    "status": "Active"
+  }
+]
