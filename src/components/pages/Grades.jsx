@@ -139,7 +139,7 @@ const filteredGrades = grades.filter(grade => {
             value={selectedCategory}
             onChange={handleCategoryChange}
             className="w-48"
-          >
+>
             <option value="all">All Categories</option>
             {categories.map(category => (
               <option key={category} value={category}>{category}</option>
