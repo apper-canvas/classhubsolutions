@@ -11,14 +11,16 @@ import Empty from "@/components/ui/Empty";
 import studentService from "@/services/api/studentService";
 
 const Students = () => {
-  const [students, setStudents] = useState([]);
+const [students, setStudents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedStudent, setSelectedStudent] = useState(null);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-
+  const [filterOpen, setFilterOpen] = useState(false);
+  const [gradeFilter, setGradeFilter] = useState("all");
+  const [statusFilter, setStatusFilter] = useState("all");
   const loadStudents = async () => {
     try {
       setLoading(true);
@@ -87,15 +89,48 @@ if (isEditing && selectedStudent) {
     setIsEditing(false);
   };
 
-  const handleSearchChange = (e) => {
+const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
   };
 
-const filteredStudents = students.filter(student =>
-    `${student.first_name_c} ${student.last_name_c}`.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    (student.email_c || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
-    (student.grade_c || '').toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const handleFilterToggle = () => {
+    setFilterOpen(!filterOpen);
+  };
+
+  const handleGradeFilterChange = (grade) => {
+    setGradeFilter(grade);
+    setFilterOpen(false);
+  };
+
+  const handleStatusFilterChange = (status) => {
+    setStatusFilter(status);
+    setFilterOpen(false);
+  };
+
+  const clearFilters = () => {
+    setGradeFilter("all");
+    setStatusFilter("all");
+    setSearchTerm("");
+    setFilterOpen(false);
+  };
+
+  const activeFilterCount = (gradeFilter !== "all" ? 1 : 0) + (statusFilter !== "all" ? 1 : 0);
+
+  const filteredStudents = students.filter(student => {
+    // Text search filter
+    const matchesSearch = !searchTerm || 
+      `${student.first_name_c} ${student.last_name_c}`.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (student.email_c || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (student.grade_c || '').toLowerCase().includes(searchTerm.toLowerCase());
+
+    // Grade filter
+    const matchesGrade = gradeFilter === "all" || student.grade_c === gradeFilter;
+
+    // Status filter
+    const matchesStatus = statusFilter === "all" || student.status_c?.toLowerCase() === statusFilter.toLowerCase();
+
+    return matchesSearch && matchesGrade && matchesStatus;
+  });
 
   if (loading) {
     return <Loading type="table" />;
@@ -120,7 +155,7 @@ const filteredStudents = students.filter(student =>
       </div>
 
       {/* Search and Filters */}
-      <div className="flex flex-col sm:flex-row gap-4">
+<div className="flex flex-col sm:flex-row gap-4">
         <div className="flex-1">
           <SearchBar
             value={searchTerm}
@@ -129,10 +164,66 @@ const filteredStudents = students.filter(student =>
           />
         </div>
         <div className="flex items-center space-x-2">
-          <Button variant="outline" size="sm">
-            <ApperIcon name="Filter" size={16} className="mr-2" />
-            Filter
-          </Button>
+          <div className="relative">
+            <Button 
+              variant="outline" 
+              size="sm"
+              onClick={handleFilterToggle}
+              className={activeFilterCount > 0 ? "bg-primary/10 border-primary text-primary" : ""}
+            >
+              <ApperIcon name="Filter" size={16} className="mr-2" />
+              Filter {activeFilterCount > 0 && `(${activeFilterCount})`}
+            </Button>
+            
+            {filterOpen && (
+              <div className="absolute right-0 top-full mt-2 w-64 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
+                <div className="p-4 space-y-4">
+                  <div>
+                    <label className="text-sm font-medium text-gray-700 block mb-2">Grade Level</label>
+                    <select 
+                      value={gradeFilter} 
+                      onChange={(e) => handleGradeFilterChange(e.target.value)}
+                      className="w-full p-2 border border-gray-300 rounded-md text-sm"
+                    >
+                      <option value="all">All Grades</option>
+                      <option value="9th">9th Grade</option>
+                      <option value="10th">10th Grade</option>
+                      <option value="11th">11th Grade</option>
+                      <option value="12th">12th Grade</option>
+                    </select>
+                  </div>
+                  
+                  <div>
+                    <label className="text-sm font-medium text-gray-700 block mb-2">Status</label>
+                    <select 
+                      value={statusFilter} 
+                      onChange={(e) => handleStatusFilterChange(e.target.value)}
+                      className="w-full p-2 border border-gray-300 rounded-md text-sm"
+                    >
+                      <option value="all">All Status</option>
+                      <option value="active">Active</option>
+                      <option value="inactive">Inactive</option>
+                      <option value="pending">Pending</option>
+                    </select>
+                  </div>
+                  
+                  {activeFilterCount > 0 && (
+                    <div className="pt-2 border-t">
+                      <Button 
+                        variant="ghost" 
+                        size="sm" 
+                        onClick={clearFilters}
+                        className="w-full text-gray-600 hover:text-gray-900"
+                      >
+                        Clear All Filters
+                      </Button>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+          
           <Button variant="outline" size="sm">
             <ApperIcon name="Download" size={16} className="mr-2" />
             Export
