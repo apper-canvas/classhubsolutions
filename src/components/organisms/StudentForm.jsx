@@ -13,6 +13,7 @@ const [formData, setFormData] = useState({
     date_of_birth_c: "",
     parent_contact_c: "",
     notes_c: "",
+    marks_c: "",
     status_c: "Active"
   });
   
@@ -20,7 +21,7 @@ const [formData, setFormData] = useState({
 
   useEffect(() => {
 if (student) {
-      setFormData({
+setFormData({
         first_name_c: student.first_name_c || "",
         last_name_c: student.last_name_c || "",
         email_c: student.email_c || "",
@@ -28,10 +29,11 @@ if (student) {
         date_of_birth_c: student.date_of_birth_c ? student.date_of_birth_c.split('T')[0] : "",
         parent_contact_c: student.parent_contact_c || "",
         notes_c: student.notes_c || "",
+        marks_c: student.marks_c || "",
         status_c: student.status_c || "Active"
       });
 } else {
-      setFormData({
+setFormData({
         first_name_c: "",
         last_name_c: "",
         email_c: "",
@@ -39,6 +41,7 @@ if (student) {
         date_of_birth_c: "",
         parent_contact_c: "",
         notes_c: "",
+        marks_c: "",
         status_c: "Active"
       });
     }
@@ -139,13 +142,23 @@ if (!formData.first_name_c.trim()) newErrors.first_name_c = "First name is requi
               required
             />
           </div>
-          
-          <FormField
+<FormField
             label="Parent Contact"
             name="parent_contact_c"
             value={formData.parent_contact_c}
             onChange={handleChange}
             placeholder="Parent phone number or email"
+          />
+          
+          <FormField
+            label="Marks"
+            name="marks_c"
+            type="number"
+            value={formData.marks_c}
+            onChange={handleChange}
+            placeholder="Enter student marks"
+            min="0"
+            max="100"
           />
           
           <FormField

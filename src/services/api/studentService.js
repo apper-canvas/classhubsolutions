@@ -20,7 +20,7 @@ class StudentService {
 
   async getAll() {
     try {
-      const params = {
+const params = {
         fields: [
           { field: { Name: "Name" }},
           { field: { Name: "first_name_c" }},
@@ -30,6 +30,7 @@ class StudentService {
           { field: { Name: "date_of_birth_c" }},
           { field: { Name: "parent_contact_c" }},
           { field: { Name: "notes_c" }},
+          { field: { Name: "marks_c" }},
           { field: { Name: "status_c" }}
         ]
       };
@@ -54,7 +55,7 @@ const response = await this.getApperClient().fetchRecords(this.tableName, params
 
   async getById(id) {
     try {
-      const params = {
+const params = {
         fields: [
           { field: { Name: "Name" }},
           { field: { Name: "first_name_c" }},
@@ -64,6 +65,7 @@ const response = await this.getApperClient().fetchRecords(this.tableName, params
           { field: { Name: "date_of_birth_c" }},
           { field: { Name: "parent_contact_c" }},
           { field: { Name: "notes_c" }},
+          { field: { Name: "marks_c" }},
           { field: { Name: "status_c" }}
         ]
       };
@@ -88,7 +90,7 @@ const response = await this.getApperClient().getRecordById(this.tableName, id, p
 
   async create(studentData) {
     try {
-      const params = {
+const params = {
         records: [{
           Name: `${studentData.first_name_c} ${studentData.last_name_c}`,
           first_name_c: studentData.first_name_c,
@@ -98,6 +100,7 @@ const response = await this.getApperClient().getRecordById(this.tableName, id, p
           date_of_birth_c: studentData.date_of_birth_c,
           parent_contact_c: studentData.parent_contact_c,
           notes_c: studentData.notes_c,
+          marks_c: studentData.marks_c ? parseInt(studentData.marks_c) : null,
           status_c: studentData.status_c
         }]
       };
@@ -133,7 +136,7 @@ const response = await this.getApperClient().createRecord(this.tableName, params
 
   async update(id, studentData) {
     try {
-      const updateData = {
+const updateData = {
         Id: parseInt(id),
         first_name_c: studentData.first_name_c,
         last_name_c: studentData.last_name_c,
@@ -142,6 +145,7 @@ const response = await this.getApperClient().createRecord(this.tableName, params
         date_of_birth_c: studentData.date_of_birth_c,
         parent_contact_c: studentData.parent_contact_c,
         notes_c: studentData.notes_c,
+        marks_c: studentData.marks_c ? parseInt(studentData.marks_c) : null,
         status_c: studentData.status_c
       };
       
